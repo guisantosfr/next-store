@@ -22,7 +22,7 @@ export default function Slider() {
   }
 
   return (
-    <section className="slider h-[calc(100vh-80px)] w-screen relative">
+    <section className="slider h-[calc(100vh-80px)] w-screen relative overflow-hidden">
       <div className="slider-container w-[300vw] h-full flex transition-all duration-1000" style={{
         transform: `translateX(-${currentSlide * 100}vw)`
       }}>

@@ -10,7 +10,7 @@ export default function Categories() {
             alt=""
             className="h-full w-full"
           />
-          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium">
+          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium hover:bg-[#2879fe] hover:text-white">
             <Link href="/products/1">Sale</Link>
           </button>
         </div>
@@ -20,7 +20,7 @@ export default function Categories() {
             alt=""
             className="h-full w-full"
           />
-          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium">
+          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium hover:bg-[#2879fe] hover:text-white">
             <Link href="/products/1">Women</Link>
           </button>
         </div>
@@ -33,7 +33,7 @@ export default function Categories() {
             alt=""
             className="h-full w-full"
           />
-          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium">
+          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium hover:bg-[#2879fe] hover:text-white">
             <Link href="/products/1">New Season</Link>
           </button>
         </div>
@@ -47,7 +47,7 @@ export default function Categories() {
                 alt=""
                 className="h-full w-full"
               />
-              <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium">
+              <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium hover:bg-[#2879fe] hover:text-white">
                 <Link href="/products/1">Men</Link>
               </button>
             </div>
@@ -60,7 +60,7 @@ export default function Categories() {
                 alt=""
                 className="h-full w-full"
               />
-              <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium">
+              <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium hover:bg-[#2879fe] hover:text-white">
                 <Link href="/products/1">Accessories</Link>
               </button>
             </div>
@@ -72,7 +72,7 @@ export default function Categories() {
             alt=""
             className="h-full w-full"
           />
-          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium">
+          <button className="absolute min-w-[100px] h-12 p-3 inset-0 m-auto w-fit cursor-pointer border-none bg-white uppercase font-medium hover:bg-[#2879fe] hover:text-white">
             <Link href="/products/1">Shoes</Link>
           </button>
         </div>
