@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import Navbar from './_components/Navbar'
 import Footer from './_components/Footer'
 import Slider from './_components/Slider'
 import ProductsSection from './_components/ProductsSection'
+import Categories from './_components/Categories'
 
 export default function Home() {
   return (
@@ -11,6 +11,7 @@ export default function Home() {
       <Slider />
       <ProductsSection type="featured" />
       <ProductsSection type="trending" />
+      <Categories />
       <Footer />
     </>
   )
