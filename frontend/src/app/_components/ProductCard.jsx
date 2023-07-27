@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ProductCard({ item }) {
   return (
     <Link href={`/product/${item.id}`}>
-      <div className="card w-[17.5rem] flex flex-col gap-3">
+      <div className="card w-[17.5rem] flex flex-col gap-3 mb-12">
         <div className="images w-full h-[25rem] overflow-hidden relative group">
           {item.isNew &&
             <span className="absolute top-[5px] left-[5px] bg-white text-teal-400 py-[3px] px-[5px] z-[3] font-medium text-xs">New Season</span>}

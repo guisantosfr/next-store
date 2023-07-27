@@ -23,15 +23,15 @@ export default function Navbar() {
             </div>
 
             <div className="item flex items-center text-lg">
-              <Link href="/category/1">Men</Link>
+              <Link href="/products/1">Men</Link>
             </div>
 
             <div className="item flex items-center text-lg">
-              <Link href="/category/2">Women</Link>
+              <Link href="/products/2">Women</Link>
             </div>
 
             <div className="item flex items-center text-lg">
-              <Link href="/category/3">Children</Link>
+              <Link href="/products/3">Children</Link>
             </div>
           </div>
 
