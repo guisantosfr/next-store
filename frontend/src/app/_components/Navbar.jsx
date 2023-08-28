@@ -1,12 +1,18 @@
+"use client"
+import { useState } from 'react';
+import Link from 'next/link';
+
+import Cart from './Cart';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
-import Link from 'next/link';
-
 export default function Navbar() {
+  const [open, setOpen] = useState(false)
+
   return (
     <header>
       <nav className='h-20'>
@@ -61,7 +67,7 @@ export default function Navbar() {
               <PersonOutlineIcon />
               <FavoriteBorderOutlinedIcon />
 
-              <div className="cartIcon relative">
+              <div className="cartIcon relative" onClick={() => setOpen(!open)}>
                 <ShoppingCartOutlinedIcon />
                 <span className="text-xs w-5 h-5 rounded-full bg-[#2879fe] text-white
                 absolute right-[-10px] top-[-10px] flex justify-center items-center">0</span>
@@ -71,6 +77,7 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+      {open && <Cart />}
     </header>
   )
 }

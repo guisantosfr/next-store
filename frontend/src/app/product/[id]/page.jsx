@@ -33,7 +33,7 @@ export default function Product({ params }) {
         </div>
 
         <div className="right flex flex-1 flex-col gap-8">
-          <h1>Title</h1>
+          <h1 className="text-4xl font-medium">Title</h1>
           <span className="price text-3xl text-[#2879fe] font-medium">$199</span>
           <p className="text-lg font-light text-justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam quis aspernatur modi ex suscipit consectetur, esse magnam voluptatum doloribus adipisci eos laboriosam voluptas minus eligendi earum, assumenda nesciunt, incidunt possimus?</p>
 
