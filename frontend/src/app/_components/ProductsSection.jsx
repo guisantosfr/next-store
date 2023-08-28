@@ -4,8 +4,8 @@ export default function ProductsSection({ type }) {
   const data = [
     {
       id: 1,
-      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
       title: 'Long sleeve Graphic t-shirt',
       isNew: true,
       oldPrice: 19,
@@ -13,8 +13,8 @@ export default function ProductsSection({ type }) {
     },
     {
       id: 2,
-      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
       title: 'Long sleeve Graphic t-shirt',
       isNew: true,
       oldPrice: 19,
@@ -22,8 +22,8 @@ export default function ProductsSection({ type }) {
     },
     {
       id: 3,
-      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
       title: 'Long sleeve Graphic t-shirt',
       isNew: true,
       oldPrice: 19,
@@ -31,8 +31,8 @@ export default function ProductsSection({ type }) {
     },
     {
       id: 4,
-      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      img: 'https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+      img2: 'https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
       title: 'Long sleeve Graphic t-shirt',
       isNew: true,
       oldPrice: 19,
