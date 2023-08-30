@@ -1,9 +1,6 @@
 "use client"
 
 import { useState } from 'react'
-import image1 from '../_assets/image1.jpg'
-import image2 from '../_assets/image2.jpg'
-import image3 from '../_assets/image3.jpg'
 
 import EastOutlinedIcon from '@mui/icons-material/EastOutlined'
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined'
@@ -11,7 +8,11 @@ import WestOutlinedIcon from '@mui/icons-material/WestOutlined'
 export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  const sliderImages = [image1, image2, image3];
+  const sliderImages = [
+    "https://images.pexels.com/photos/949670/pexels-photo-949670.jpeg?auto=compress&cs=tinysrgb&w=1400&lazy=load",
+    "https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&cs=tinysrgb&w=1400&lazy=load",
+    "https://images.pexels.com/photos/2229490/pexels-photo-2229490.jpeg?auto=compress&cs=tinysrgb&w=1400&lazy=load",
+  ];
 
   const prevSlide = () => {
     setCurrentSlide(currentSlide === 0 ? sliderImages.length - 1 : (prev) => prev - 1)
@@ -23,11 +24,11 @@ export default function Slider() {
 
   return (
     <section className="slider h-[calc(100vh-80px)] w-screen relative overflow-hidden">
-      <div className="slider-container w-[300vw] h-full flex transition-all duration-1000" style={{
+      <div className="slider-container w-[300vw] flex transition-all duration-1000" style={{
         transform: `translateX(-${currentSlide * 100}vw)`
       }}>
-        {sliderImages.map(image =>
-          <img src={image.src} key={image.src} alt="Slider image" className="w-screen h-full" />)}
+        {sliderImages.map((image, index) =>
+          <img src={image} key={index} alt="Slider image" className="w-screen" />)}
       </div>
 
       <div className="icons absolute inset-x-0 bottom-24 m-auto w-fit flex gap-3">

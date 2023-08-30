@@ -14,8 +14,8 @@ export default function ProductCard({ item }) {
         <h3 className="text-base font-medium">{item.title}</h3>
 
         <div className="prices flex gap-5">
-          <h4 className="text-lg font-medium text-gray-400 line-through">{item.oldPrice}</h4>
-          <h4 className="text-lg font-medium">{item.price}</h4>
+          <h4 className="text-lg font-medium text-gray-400 line-through">${item.oldPrice}</h4>
+          <h4 className="text-lg font-medium">${item.price}</h4>
         </div>
       </div>
     </Link>
