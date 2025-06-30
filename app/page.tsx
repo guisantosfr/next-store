@@ -3,56 +3,20 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Star, Truck, Shield, RefreshCw } from "lucide-react"
+import { ArrowRight, Truck, Shield, RefreshCw } from "lucide-react"
+import { Category } from "@/types/Category"
+import { Product } from "@/types/Product"
 
-export default function Home() {
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Premium Cotton T-Shirt",
-      price: 49.99,
-      originalPrice: 69.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "premium-cotton-t-shirt",
-      rating: 4.8,
-      reviews: 124,
-    },
-    {
-      id: 2,
-      name: "Designer Denim Jacket",
-      price: 129.99,
-      originalPrice: 179.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "designer-denim-jacket",
-      rating: 4.9,
-      reviews: 89,
-    },
-    {
-      id: 3,
-      name: "Luxury Silk Scarf",
-      price: 89.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "luxury-silk-scarf",
-      rating: 4.7,
-      reviews: 156,
-    },
-    {
-      id: 4,
-      name: "Classic Leather Boots",
-      price: 199.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "classic-leather-boots",
-      rating: 4.9,
-      reviews: 203,
-    },
-  ]
-
-  const categories = [
-    { name: "Women", slug: "women", image: "/placeholder.svg?height=300&width=300" },
-    { name: "Men", slug: "men", image: "/placeholder.svg?height=300&width=300" },
-    { name: "Accessories", slug: "accessories", image: "/placeholder.svg?height=300&width=300" },
-    { name: "Shoes", slug: "shoes", image: "/placeholder.svg?height=300&width=300" },
-  ]
+export default async function Home() {
+  const productsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+  const allProducts = await productsResponse.json();
+  
+  const categoriesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+  const allCategories = await categoriesResponse.json();
+  const categories: Category[] = allCategories.slice(0, 5);
+  
+  //select 4 random products from allProducts
+  const featuredProducts: Product[] = allProducts.sort(() => 0.5 - Math.random()).slice(0, 4);
 
   return (
     <div className="flex flex-col">
@@ -129,27 +93,16 @@ export default function Home() {
                   <Link href={`/products/${product.slug}`}>
                     <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
                       <Image
-                        src={product.image || "/placeholder.svg"}
-                        alt={product.name}
+                        src={product.images[0] || "/placeholder.svg"}
+                        alt={product.description}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      {product.originalPrice && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}
+                      {product.price && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.name}</h3>
-                      <div className="flex items-center gap-1 mb-2">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm text-gray-600">
-                          {product.rating} ({product.reviews})
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold">${product.price}</span>
-                        {product.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">${product.originalPrice}</span>
-                        )}
-                      </div>
+                      <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.title}</h3>
+                      <span className="text-lg font-bold">${product.price}</span>
                     </div>
                   </Link>
                 </CardContent>
