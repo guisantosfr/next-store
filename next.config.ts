@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
       new URL('https://i.imgur.com/**'), 
       new URL('https://placeimg.com/**'), 
       new URL('https://pravatar.cc/**'),
-      new URL('https://picsum.photos/**')
+      new URL('https://picsum.photos/**'),
+      new URL('https://assets.stickpng.com/**')
+
     ]
   }
   /* config options here */

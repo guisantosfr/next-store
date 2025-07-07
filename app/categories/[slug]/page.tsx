@@ -1,111 +1,27 @@
-"use client"
-
-import { use, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
 import Link from "next/link"
-import { Star } from "lucide-react"
+import { Category } from "@/types/Category"
+import { Product } from "@/types/Product"
 
-export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = use(params)
-  const [sortBy, setSortBy] = useState("featured")
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
-    // Mock category data - in real app, fetch based on params.slug
-  const categoryData = {
-    clothing: {
-      name: "Clothing",
-      description: "Discover our collection of comfortable and stylish clothing for all occasions",
-      image: "/placeholder.svg?height=300&width=1200",
-    },
-    electronics: {
-      name: "Electronics",
-      description: "Explore cutting-edge electronics and tech gadgets for modern living",
-      image: "/placeholder.svg?height=300&width=1200",
-    },
-    furniture: {
-      name: "Furniture",
-      description: "Transform your space with our quality furniture pieces",
-      image: "/placeholder.svg?height=300&width=1200",
-    },
-    shoes: {
-      name: "Shoes",
-      description: "Step out in style with our comfortable and fashionable footwear",
-      image: "/placeholder.svg?height=300&width=1200",
-    },
-  }
+  const categoryResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/slug/${slug}`);
+  const category: Category = await categoryResponse.json();
 
-  const category = categoryData[resolvedParams.slug as keyof typeof categoryData] || categoryData.women
-
-  const products = [
-    {
-      id: 1,
-      name: "Premium Cotton T-Shirt",
-      price: 49.99,
-      originalPrice: 69.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "premium-cotton-t-shirt",
-      rating: 4.8,
-      reviews: 124,
-    },
-    {
-      id: 2,
-      name: "Designer Denim Jacket",
-      price: 129.99,
-      originalPrice: 179.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "designer-denim-jacket",
-      rating: 4.9,
-      reviews: 89,
-    },
-    {
-      id: 3,
-      name: "Luxury Silk Scarf",
-      price: 89.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "luxury-silk-scarf",
-      rating: 4.7,
-      reviews: 156,
-    },
-    {
-      id: 4,
-      name: "Classic Leather Boots",
-      price: 199.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "classic-leather-boots",
-      rating: 4.9,
-      reviews: 203,
-    },
-    {
-      id: 5,
-      name: "Elegant Evening Dress",
-      price: 249.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "elegant-evening-dress",
-      rating: 4.6,
-      reviews: 78,
-    },
-    {
-      id: 6,
-      name: "Casual Sneakers",
-      price: 79.99,
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "casual-sneakers",
-      rating: 4.5,
-      reviews: 312,
-    },
-  ]
+  const productsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${category.id}/products`);
+  const products: Product[] = await productsResponse.json();
 
   return (
     <div>
       {/* Category Hero */}
       <div className="relative h-64 lg:h-80 mb-8">
-        <Image src={category.image || "/placeholder.svg"} alt={category.name} fill className="object-cover" />
+        <Image src={category.image || "/placeholder.svg"} alt={category.name || "Category Image"} fill className="object-cover" />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
           <div className="text-center text-white">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">{category.name}</h1>
-            <p className="text-lg lg:text-xl">{category.description}</p>
           </div>
         </div>
       </div>
@@ -127,18 +43,6 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         {/* Sort and Results */}
         <div className="flex justify-between items-center mb-8">
           <p className="text-gray-600">{products.length} products found</p>
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-48">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="featured">Featured</SelectItem>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="rating">Highest Rated</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
 
         {/* Products Grid */}
@@ -149,25 +53,20 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                 <Link href={`/products/${product.slug}`}>
                   <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
                     <Image
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
+                      src={product.images[0] || "/placeholder.svg"}
+                      alt={product.title || 'Product Image'}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    {product.originalPrice && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}
+                    {product.price && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}
                   </div>
                   <div className="p-4">
-                    <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.name}</h3>
-                    <div className="flex items-center gap-1 mb-2">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm text-gray-600">
-                        {product.rating} ({product.reviews})
-                      </span>
-                    </div>
+                    <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.title}</h3>
+                  
                     <div className="flex items-center gap-2">
                       <span className="text-lg font-bold">${product.price}</span>
-                      {product.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through">${product.originalPrice}</span>
+                      {product.price && (
+                        <span className="text-sm text-gray-500 line-through">${product.price}</span>
                       )}
                     </div>
                   </div>

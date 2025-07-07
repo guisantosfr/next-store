@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
-import { Star } from "lucide-react"
 import ProductFilters from "@/components/product-filters"
 import { Product } from "@/types/Product"
 
@@ -29,18 +28,6 @@ export default async function ProductsPage() {
           {/* Sort and Results */}
           <div className="flex justify-between items-center mb-6">
             <p className="text-gray-600">{products.length} products found</p>
-            {/* <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="featured">Featured</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
-                <SelectItem value="newest">Newest</SelectItem>
-                <SelectItem value="rating">Highest Rated</SelectItem>
-              </SelectContent>
-            </Select> */}
           </div>
 
           {/* Products Grid */}
@@ -63,30 +50,13 @@ export default async function ProductsPage() {
                         {product.category.name}
                       </Badge>
                       <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.title}</h3>
-                      {/* <div className="flex items-center gap-1 mb-2">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm text-gray-600">
-                          {product.rating} ({product.reviews})
-                        </span>
-                      </div> */}
+                
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-lg font-bold">${product.price}</span>
                         {product.price && (
                           <span className="text-sm text-gray-500 line-through">${product.price}</span>
                         )}
                       </div>
-                      {/* <div className="flex gap-1">
-                        {product.colors.slice(0, 3).map((color, index) => (
-                          <div
-                            key={index}
-                            className="w-4 h-4 rounded-full border border-gray-300"
-                            style={{ backgroundColor: color.toLowerCase() }}
-                          />
-                        ))}
-                        {product.colors.length > 3 && (
-                          <span className="text-xs text-gray-500 ml-1">+{product.colors.length - 3}</span>
-                        )}
-                      </div> */}
                     </div>
                   </Link>
                 </CardContent>
