@@ -12,26 +12,26 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   const resolvedParams = use(params)
   const [sortBy, setSortBy] = useState("featured")
 
-  // Mock category data - in real app, fetch based on params.slug
+    // Mock category data - in real app, fetch based on params.slug
   const categoryData = {
-    women: {
-      name: "Women's Fashion",
-      description: "Discover our curated collection of women's clothing and accessories",
+    clothing: {
+      name: "Clothing",
+      description: "Discover our collection of comfortable and stylish clothing for all occasions",
       image: "/placeholder.svg?height=300&width=1200",
     },
-    men: {
-      name: "Men's Fashion",
-      description: "Explore our premium men's clothing and accessories",
+    electronics: {
+      name: "Electronics",
+      description: "Explore cutting-edge electronics and tech gadgets for modern living",
       image: "/placeholder.svg?height=300&width=1200",
     },
-    accessories: {
-      name: "Accessories",
-      description: "Complete your look with our stylish accessories",
+    furniture: {
+      name: "Furniture",
+      description: "Transform your space with our quality furniture pieces",
       image: "/placeholder.svg?height=300&width=1200",
     },
     shoes: {
       name: "Shoes",
-      description: "Step out in style with our footwear collection",
+      description: "Step out in style with our comfortable and fashionable footwear",
       image: "/placeholder.svg?height=300&width=1200",
     },
   }

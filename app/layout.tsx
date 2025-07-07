@@ -9,9 +9,9 @@ import { Toaster } from "@/components/ui/sonner"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Fashion Shop - Premium Fashion & Accessories",
-  description: "Discover the latest trends in fashion with our curated collection of premium clothing and accessories.",
-    generator: 'v0.dev'
+  title: "NextStore - Your One-Stop Online Store",
+  description:
+    "Discover amazing products across clothing, electronics, furniture, and shoes with great prices and fast shipping.",
 }
 
 export default function RootLayout({

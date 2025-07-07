@@ -13,7 +13,7 @@ export default async function Home() {
   
   const categoriesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
   const allCategories = await categoriesResponse.json();
-  const categories: Category[] = allCategories.slice(0, 5);
+  const categories: Category[] = allCategories.slice(0, 4);
   
   //select 4 random products from allProducts
   const featuredProducts: Product[] = allProducts.sort(() => 0.5 - Math.random()).slice(0, 4);
@@ -24,10 +24,10 @@ export default async function Home() {
       <section className="relative bg-gradient-to-r from-gray-900 to-gray-700 text-white">
         <div className="container mx-auto px-4 py-24 lg:py-32">
           <div className="max-w-3xl">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">Discover Your Perfect Style</h1>
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6">Discover Amazing Products</h1>
             <p className="text-xl mb-8 text-gray-300">
-              Explore our curated collection of premium fashion and accessories. From timeless classics to the latest
-              trends.
+              Explore our wide selection of quality products across clothing, electronics, furniture, and shoes. From
+              everyday essentials to premium items.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-white text-black hover:bg-gray-100">
@@ -39,9 +39,9 @@ export default async function Home() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-black"
+                className="border-white text-white hover:bg-white hover:text-black bg-transparent"
               >
-                <Link href="/categories/women">Women's Collection</Link>
+                <Link href="/categories/clothing">Shop Clothing</Link>
               </Button>
             </div>
           </div>

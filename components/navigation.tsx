@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -17,22 +17,45 @@ import {
 import { Menu, Search, ShoppingCart, User, Heart, Package, Settings, LogOut } from "lucide-react"
 import { useCart } from "@/components/cart-provider"
 import { cn } from "@/lib/utils"
+import { Category } from "@/types/Category"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const { items } = useCart()
 
+  const [navLinks, setNavLinks] = useState([
+    { href: "/", label: "Home" },
+  ])
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/products", label: "Products" },
-    { href: "/categories/women", label: "Women" },
-    { href: "/categories/men", label: "Men" },
-    { href: "/categories/accessories", label: "Accessories" },
-    { href: "/categories/shoes", label: "Shoes" },
-  ]
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+      const data = await response.json()
+
+      const categoriesSelected = data.splice(0, 4)
+
+      const linksToAdd = categoriesSelected.map((category: Category) => ({
+        href: `/categories/${category.slug}`,
+        label: category.name
+      }))
+
+      setNavLinks((prevLinks) => [...prevLinks, ...linksToAdd])
+    }
+
+    fetchCategories();
+  }, [])
+
+  // const navLinks = [
+  //   { href: "/", label: "Home" },
+  //   { href: "/products", label: "Products" },
+  //   { href: "/categories/women", label: "Women" },
+  //   { href: "/categories/men", label: "Men" },
+  //   { href: "/categories/accessories", label: "Accessories" },
+  //   { href: "/categories/shoes", label: "Shoes" },
+  // ]
 
   const isActiveLink = (href: string) => {
     if (href === "/") {

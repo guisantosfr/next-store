@@ -102,7 +102,7 @@ export default function ProductsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4">All Products</h1>
-        <p className="text-gray-600">Discover our complete collection of premium fashion items</p>
+        <p className="text-gray-600">Discover our complete collection of quality products across all categories</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
