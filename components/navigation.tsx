@@ -48,15 +48,6 @@ export function Navigation() {
     fetchCategories();
   }, [])
 
-  // const navLinks = [
-  //   { href: "/", label: "Home" },
-  //   { href: "/products", label: "Products" },
-  //   { href: "/categories/women", label: "Women" },
-  //   { href: "/categories/men", label: "Men" },
-  //   { href: "/categories/accessories", label: "Accessories" },
-  //   { href: "/categories/shoes", label: "Shoes" },
-  // ]
-
   const isActiveLink = (href: string) => {
     if (href === "/") {
       return pathname === "/"
@@ -71,9 +62,9 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="h-8 w-8 bg-black rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">F</span>
+              <span className="text-white font-bold text-sm">N</span>
             </div>
-            <span className="font-bold text-xl">Fashion Shop</span>
+            <span className="font-bold text-xl">Next Shop</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -32,7 +32,7 @@ export default function RegisterPage() {
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-2xl">Create Account</CardTitle>
-            <CardDescription>Join us and start your fashion journey</CardDescription>
+            <CardDescription>Join us and start your shopping journey</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
