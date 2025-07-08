@@ -2,11 +2,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
-import { Star } from "lucide-react"
 import { Product } from "@/types/Product"
 
 export default async function RelatedProducts({ params }: { params: { slug: string } }) {  
-  const { slug } = params
+  const { slug } = await params
 
   const relatedProductsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/slug/${slug}/related`);
   const relatedProducts: Product[] = await relatedProductsResponse.json();
