@@ -35,14 +35,14 @@ export default async function Home() {
                   Shop Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button
+              {/* <Button
                 asChild
                 variant="outline"
                 size="lg"
                 className="border-white text-white hover:bg-white hover:text-black bg-transparent"
               >
                 <Link href="/categories/clothing">Shop Clothing</Link>
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

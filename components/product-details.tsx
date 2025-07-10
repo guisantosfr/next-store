@@ -1,15 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
 import Link from "next/link"
-import { Star, Heart, Share2, ShoppingCart, Truck, Shield, RotateCcw } from "lucide-react"
+import { Heart, Share2, ShoppingCart, Truck, Shield, RotateCcw, PlusIcon, MinusIcon } from "lucide-react"
 import { useCart } from "@/components/cart-provider"
 import { toast } from 'sonner';
 import { Product } from "@/types/Product"
@@ -107,18 +105,27 @@ export default function ProductDetails({ product }: { product: Product }) {
             {/* Quantity */}
             <div>
               <label className="block text-sm font-medium mb-2">Quantity</label>
-              <Select value={quantity.toString()} onValueChange={(value) => setQuantity(Number.parseInt(value))}>
-                <SelectTrigger className="w-20">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {[1, 2, 3, 4, 5].map((num) => (
-                    <SelectItem key={num} value={num.toString()}>
-                      {num}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
+                  disabled={quantity <= 1}
+                >
+                  <MinusIcon className="h-4 w-4" />
+                </Button>
+
+                <span className="text-lg font-medium mx-3">{quantity}</span>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setQuantity((prev) => prev + 1)}
+                >
+                  <PlusIcon className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
 
