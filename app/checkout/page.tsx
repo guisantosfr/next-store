@@ -146,7 +146,7 @@ export default function CheckoutPage() {
                 {/* Order Items */}
                 <div className="space-y-3">
                   {items.map((item) => (
-                    <div key={`${item.id}-${item.size}-${item.color}`} className="flex gap-3">
+                    <div key={`${item.id}`} className="flex gap-3">
                       <div className="relative w-16 h-16 flex-shrink-0">
                         <Image
                           src={item.image || "/placeholder.svg"}
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
                       <div className="flex-1">
                         <h4 className="font-medium text-sm">{item.name}</h4>
                         <p className="text-xs text-gray-600">
-                          {item.size} | {item.color} | Qty: {item.quantity}
+                          Qty: {item.quantity}
                         </p>
                         <p className="font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
                       </div>

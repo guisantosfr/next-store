@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
       new URL('https://placeimg.com/**'), 
       new URL('https://pravatar.cc/**'),
       new URL('https://picsum.photos/**'),
-      new URL('https://assets.stickpng.com/**')
+      new URL('https://assets.stickpng.com/**'),
+      new URL('https://plus.unsplash.com/**')
 
     ]
   }

@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Category } from "@/types/Category"
 import { Product } from "@/types/Product"
+import { notFound } from "next/navigation"
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -13,6 +14,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   const productsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${category.id}/products`);
   const products: Product[] = await productsResponse.json();
+
+  if(categoryResponse.status === 400 || productsResponse.status === 400) {
+    notFound()
+  }
 
   return (
     <div>
@@ -47,7 +52,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {
+          products.map((product) => (
             <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow">
               <CardContent className="p-0">
                 <Link href={`/products/${product.slug}`}>
@@ -73,7 +79,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 </Link>
               </CardContent>
             </Card>
-          ))}
+          ))
+          }
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ export default function CartPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {items.map((item) => (
-                <div key={`${item.id}-${item.size}-${item.color}`} className="flex gap-4 p-4 border rounded-lg">
+                <div key={`${item.id}`} className="flex gap-4 p-4 border rounded-lg">
                   <div className="relative w-20 h-20 flex-shrink-0">
                     <Image
                       src={item.image || "/placeholder.svg"}
@@ -50,20 +50,17 @@ export default function CartPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold">{item.name}</h3>
-                    <p className="text-sm text-gray-600">
-                      Size: {item.size} | Color: {item.color}
-                    </p>
                     <p className="font-bold text-lg">${item.price}</p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id, item.size, item.color)}>
+                    <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id)}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                     <div className="flex items-center gap-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => updateQuantity(item.id, item.size, item.color, Math.max(1, item.quantity - 1))}
+                        onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
@@ -71,7 +68,7 @@ export default function CartPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => updateQuantity(item.id, item.size, item.color, item.quantity + 1)}
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       >
                         <Plus className="h-4 w-4" />
                       </Button>
