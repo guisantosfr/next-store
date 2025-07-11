@@ -16,11 +16,11 @@ export default async function RelatedProducts({ params }: { params: { slug: stri
   }
 
   return (
-    <div className="mt-16">
+    <div className="mt-16 w-5/6 mx-auto">
       <h2 className="text-2xl font-bold mb-6">Related Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {relatedProducts.map((product) => (
-          <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow">
+          <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow py-0">
             <CardContent className="p-0">
               <Link href={`/products/${product.slug}`}>
                 <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">

@@ -11,8 +11,6 @@ const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?offset
     next: { revalidate: 60}
   });
   const relatedProducts: Product[] = await response.json();
-
-  console.log(relatedProducts)
   
   return (
     <div className="min-h-screen bg-gray-50">

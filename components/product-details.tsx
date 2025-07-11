@@ -52,10 +52,10 @@ export default function ProductDetails({ product }: { product: Product }) {
         <span className="text-gray-900">{product.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {/* Product Images */}
         <div className="space-y-4">
-          <div className="aspect-[4/5] relative overflow-hidden rounded-lg">
+          <div className="aspect-square relative overflow-hidden rounded-lg">
             <Image
               src={product.images[selectedImage] || "/placeholder.svg"}
               alt={product.title}
@@ -84,7 +84,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           <div>
             <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
            
@@ -130,21 +130,21 @@ export default function ProductDetails({ product }: { product: Product }) {
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-3">
-            <Button onClick={handleAddToCart} className="w-full cursor-pointer" size="lg">
-              <ShoppingCart className="mr-2 h-5 w-5" />
+          <div className="flex space-y-4 gap-3">
+            
+            <Button onClick={handleAddToCart} className="cursor-pointer" size="lg">
+              <ShoppingCart className="mr-2 h-4 w-5" />
               Add to Cart
             </Button>
-            <div className="flex gap-2">
-              <Button variant="outline" className="flex-1">
+              <Button variant="outline">
                 <Heart className="mr-2 h-4 w-4" />
                 Add to Wishlist
               </Button>
-              <Button variant="outline" className="flex-1">
+              <Button variant="outline">
                 <Share2 className="mr-2 h-4 w-4" />
                 Share
               </Button>
-            </div>
+            
           </div>
 
           {/* Features */}

@@ -55,7 +55,7 @@ export default async function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
               <Link key={category.slug} href={`/categories/${category.slug}`}>
-                <Card className="group cursor-pointer overflow-hidden hover:shadow-lg transition-shadow">
+                <Card className="group cursor-pointer overflow-hidden hover:shadow-lg transition-shadow py-2">
                   <CardContent className="p-0">
                     <div className="relative aspect-square">
                       <Image
@@ -88,7 +88,7 @@ export default async function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow">
+              <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow py-0">
                 <CardContent className="p-0">
                   <Link href={`/products/${product.slug}`}>
                     <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
