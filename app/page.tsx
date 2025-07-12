@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Truck, Shield, RefreshCw } from "lucide-react"
 import { Category } from "@/types/Category"
 import { Product } from "@/types/Product"
+import CategoryCard from "@/components/category-card"
+import ProductCard from "@/components/product-card"
 
 export default async function Home() {
   const productsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
@@ -35,14 +34,6 @@ export default async function Home() {
                   Shop Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              {/* <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-black bg-transparent"
-              >
-                <Link href="/categories/clothing">Shop Clothing</Link>
-              </Button> */}
             </div>
           </div>
         </div>
@@ -54,24 +45,7 @@ export default async function Home() {
           <h2 className="text-3xl font-bold text-center mb-12">Shop by Category</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
-              <Link key={category.slug} href={`/categories/${category.slug}`}>
-                <Card className="group cursor-pointer overflow-hidden hover:shadow-lg transition-shadow py-2">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-square">
-                      <Image
-                        src={category.image || "/placeholder.svg"}
-                        alt={category.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                      <div className="absolute bottom-4 left-4">
-                        <h3 className="text-white text-xl font-semibold">{category.name}</h3>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+              <CategoryCard key={category.slug} category={category} />
             ))}
           </div>
         </div>
@@ -88,25 +62,7 @@ export default async function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow py-0">
-                <CardContent className="p-0">
-                  <Link href={`/products/${product.slug}`}>
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
-                      <Image
-                        src={product.images[0] || "/placeholder.svg"}
-                        alt={product.description}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {product.price && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.title}</h3>
-                      <span className="text-lg font-bold">${product.price}</span>
-                    </div>
-                  </Link>
-                </CardContent>
-              </Card>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>

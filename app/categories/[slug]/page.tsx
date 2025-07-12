@@ -1,10 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { Category } from "@/types/Category"
 import { Product } from "@/types/Product"
 import { notFound } from "next/navigation"
+import ProductCard from "@/components/product-card"
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -54,31 +53,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {
           products.map((product) => (
-            <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-shadow py-0">
-              <CardContent className="p-0">
-                <Link href={`/products/${product.slug}`}>
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
-                    <Image
-                      src={product.images[0] || "/placeholder.svg"}
-                      alt={product.title || 'Product Image'}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {product.price && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold mb-2 group-hover:text-blue-600 transition-colors">{product.title}</h3>
-                  
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg font-bold">${product.price}</span>
-                      {product.price && (
-                        <span className="text-sm text-gray-500 line-through">${product.price}</span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              </CardContent>
-            </Card>
+            <ProductCard key={product.id} product={product} />
           ))
           }
         </div>
