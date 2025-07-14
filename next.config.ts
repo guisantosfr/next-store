@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
       new URL('https://dosi-in.com/**'),
       new URL('https://api.escuelajs.co/**'),
       new URL('https://th.bing.com/**'),
+      new URL('https://imgs.search.brave.com/**'),
+      new URL('https://giftdev.ru/**'),
+      new URL('https://i.dell.com/**')
     ]
   }
   /* config options here */

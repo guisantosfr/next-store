@@ -1,7 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
-import Link from "next/link"
 import { Product } from "@/types/Product"
 import { notFound } from "next/navigation"
 import ProductCard from "@/components/product-card"

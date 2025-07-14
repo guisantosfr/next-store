@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -18,11 +18,30 @@ import { Menu, Search, ShoppingCart, User, Heart, Package, Settings, LogOut } fr
 import { useCart } from "@/components/cart-provider"
 import { cn } from "@/lib/utils"
 import { Category } from "@/types/Category"
+import { useDebounce } from "@/lib/use-debounce"
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const { items } = useCart()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [search, setSearch] = useState(searchParams.get('title') || '')
+
+  const debouncedSearch = useDebounce(search, 500);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (debouncedSearch) {
+      params.set('title', debouncedSearch);
+    } else {
+      params.delete('title');
+    }
+
+    router.replace(`/products?${params.toString()}`);
+  }, [debouncedSearch]);
 
   const [navLinks, setNavLinks] = useState([
     { href: "/", label: "Home" },
@@ -84,12 +103,20 @@ export function Navigation() {
           </nav>
 
           {/* Search Bar */}
-          <div className="hidden lg:flex items-center space-x-2 flex-1 max-w-sm mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input type="search" placeholder="Search products..." className="pl-8" />
+          { pathname === '/products' && (
+            <div className="hidden lg:flex items-center space-x-2 flex-1 max-w-sm mx-8">
+              <div className="relative w-full">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input 
+                type="search" 
+                placeholder="Search products..." 
+                className="pl-8"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)} 
+                />
+              </div>
             </div>
-          </div>
+          )} 
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
