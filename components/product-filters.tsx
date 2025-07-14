@@ -1,33 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
 
 import { Filter } from "lucide-react"
+import { Category } from "@/types/Category";
 
 
 export default function ProductFilters() {
+    const [categories, setCategories] = useState<Category[]>([]);
     const [priceRange, setPriceRange] = useState([0, 500])
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
 
-    const categories = ["Tops", "Outerwear", "Accessories", "Shoes", "Dresses"]
-
-    const handleCategoryChange = (category: string, checked: boolean) => {
-        if (checked) {
-            setSelectedCategories([...selectedCategories, category])
-        } else {
-            setSelectedCategories(selectedCategories.filter((c) => c !== category))
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const categoriesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+            const allCategories = await categoriesResponse.json();
+            const categories: Category[] = allCategories.slice(0, 4);
+            setCategories(categories);
         }
-    }
+
+        fetchCategories()
+    }, [])
 
     return (
         <div className="lg:col-span-1">
             <Card>
-                <CardContent className="p-6">
+                <CardContent className="px-6">
                     <div className="flex items-center gap-2 mb-6">
                         <Filter className="h-5 w-5" />
                         <h2 className="text-lg font-semibold">Filters</h2>
@@ -37,18 +40,26 @@ export default function ProductFilters() {
                     <div className="mb-6">
                         <h3 className="font-medium mb-3">Categories</h3>
                         <div className="space-y-2">
-                            {categories.map((category) => (
-                                <div key={category} className="flex items-center space-x-2">
-                                    <Checkbox
-                                        id={category}
-                                        checked={selectedCategories.includes(category)}
-                                        onCheckedChange={(checked) => handleCategoryChange(category, checked as boolean)}
-                                    />
-                                    <Label htmlFor={category} className="text-sm">
-                                        {category}
-                                    </Label>
-                                </div>
-                            ))}
+                            <RadioGroup
+                                value={selectedCategory?.slug}
+                                onValueChange={(slug) => {
+                                    const category = categories.find(c => c.slug === slug);
+                                    if (category) setSelectedCategory(category);
+                                }}
+                            >
+                                {categories.map((category) => (
+                                    <div key={category.id} className="flex items-center space-x-2">
+                                        <RadioGroupItem
+                                            id={category.slug}
+                                            value={category.slug}
+                                        />
+                                        <Label htmlFor={category.slug} className="text-sm">
+                                            {category.name}
+                                        </Label>
+                                    </div>
+                                ))}
+                            </RadioGroup>
+
                         </div>
                     </div>
 
