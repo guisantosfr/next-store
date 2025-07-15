@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
       new URL('https://books.goalkicker.com/**'),
       new URL('https://cdn.example.com/**'),
       new URL('https://i0.wp.com/**'),
+      new URL('https://i.dell.com/**')
 
     ]
   }

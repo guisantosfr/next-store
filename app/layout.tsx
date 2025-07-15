@@ -1,4 +1,5 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
@@ -23,7 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <CartProvider>
-          <Navigation />
+          <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+            <Navigation />
+          </Suspense>
+          
           <main className="min-h-screen">{children}</main>
           <Toaster />
         </CartProvider>

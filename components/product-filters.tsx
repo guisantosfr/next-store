@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -17,7 +17,44 @@ export default function ProductFilters() {
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [priceRange, setPriceRange] = useState([0, 100]);
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+    // Centralized function to update URL
+    const updateURL = useCallback((updates: {
+        priceRange?: [number, number];
+        categorySlug?: string | null;
+        clearAll?: boolean;
+    }) => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (updates.clearAll) {
+            params.delete('price_min');
+            params.delete('price_max');
+            params.delete('categorySlug');
+        } else {
+            // Handle price range
+            if (updates.priceRange) {
+                if (updates.priceRange[0] !== 0 || updates.priceRange[1] !== 100) {
+                    params.set('price_min', updates.priceRange[0].toString());
+                    params.set('price_max', updates.priceRange[1].toString());
+                } else {
+                    params.delete('price_min');
+                    params.delete('price_max');
+                }
+            }
+
+            // Handle category
+            if (updates.categorySlug !== undefined) {
+                if (updates.categorySlug) {
+                    params.set('categorySlug', updates.categorySlug);
+                } else {
+                    params.delete('categorySlug');
+                }
+            }
+        }
+
+        router.replace(`${pathname}?${params.toString()}`);
+    }, [searchParams, router, pathname]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -30,31 +67,35 @@ export default function ProductFilters() {
         fetchCategories()
     }, [])
 
+    // Initialize state from URL params
     useEffect(() => {
-        const params = new URLSearchParams(searchParams.toString());
+        const categorySlug = searchParams.get('categorySlug');
+        const priceMin = searchParams.get('price_min');
+        const priceMax = searchParams.get('price_max');
 
-        if (priceRange[0] !== 0 || priceRange[1] !== 100) {
-            params.set('price_min', priceRange[0].toString());
-            params.set('price_max', priceRange[1].toString());
-          } else {
-            params.delete('price_min');
-            params.delete('price_max');
-          }
-      
-          router.replace(`/products?${params.toString()}`);
-    }, [priceRange])
+        setSelectedCategory(categorySlug);
+        if (priceMin && priceMax) {
+            setPriceRange([parseInt(priceMin), parseInt(priceMax)]);
+        }
+    }, [searchParams]);
+
+    const handlePriceChange = (newRange: [number, number]) => {
+        setPriceRange(newRange);
+        updateURL({ priceRange: newRange });
+    }
 
     const handleSelectCategory = (slug: string) => {  
-        const params = new URLSearchParams(searchParams);
-        
-        if(slug) {
-            params.set('categorySlug', slug);
-        } else{
-            params.delete('categorySlug');
-        }
-
-        router.replace(`${pathname}?${params.toString()}`);
         setSelectedCategory(slug);
+        updateURL({ categorySlug: slug });
+    }
+
+    const clearFilters = () => {
+        // Update state
+        setPriceRange([0, 100]);
+        setSelectedCategory(null);
+        
+        // Clear URL in one operation
+        updateURL({ clearAll: true });
     }
 
     return (
@@ -71,7 +112,7 @@ export default function ProductFilters() {
                         <h3 className="font-medium mb-3">Categories</h3>
                         <div className="space-y-2">
                             <RadioGroup
-                                value={selectedCategory}
+                                value={selectedCategory || ""}
                                 onValueChange={handleSelectCategory}
                             >
                                 {categories.map((category) => (
@@ -86,26 +127,31 @@ export default function ProductFilters() {
                                     </div>
                                 ))}
                             </RadioGroup>
-
                         </div>
                     </div>
 
                     {/* Price Range */}
                     <div className="mb-6">
                         <h3 className="font-medium mb-3">Price Range</h3>
-                        <Slider value={priceRange} onValueChange={setPriceRange} min={0} max={100} step={1} className="mb-2" />
+                        <Slider 
+                            value={priceRange} 
+                            onValueChange={handlePriceChange} 
+                            min={0} 
+                            max={100} 
+                            step={1} 
+                            className="mb-2" 
+                        />
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>${priceRange[0]}</span>
                             <span>${priceRange[1]}</span>
                         </div>
                     </div>
 
-                    <Button className="w-full" variant="outline">
+                    <Button className="w-full" variant="outline" onClick={clearFilters}>
                         Clear Filters
                     </Button>
                 </CardContent>
             </Card>
         </div>
     )
-
 }

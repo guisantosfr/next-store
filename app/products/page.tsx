@@ -1,12 +1,22 @@
+import { Suspense } from "react";
 import ProductFilters from "@/components/product-filters"
 import { Product } from "@/types/Product"
 import ProductCard from "@/components/product-card"
 import { notFound } from "next/navigation";
 
-export default async function ProductsPage({ searchParams }: { searchParams: { title?: string, price_min?: string, price_max?: string, categorySlug?: string } }) {
+interface SearchParams {
+  title?: string;
+  price_min?: string;
+  price_max?: string;
+  categorySlug?: string;
+}
+
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<SearchParams>}) {
+  const resolvedSearchParams = await searchParams;
+  
   const params = new URLSearchParams();
 
-  const { title, price_min, price_max, categorySlug } = await searchParams;
+  const { title, price_min, price_max, categorySlug } = resolvedSearchParams;
 
   console.log(categorySlug)
 
@@ -51,7 +61,9 @@ export default async function ProductsPage({ searchParams }: { searchParams: { t
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Filters Sidebar */}
-        <ProductFilters />
+        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading Filters...</div>}>
+          <ProductFilters />
+        </Suspense>
 
         {/* Products Grid */}
         <div className="lg:col-span-3">

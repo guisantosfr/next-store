@@ -40,7 +40,7 @@ export function Navigation() {
       params.delete('title');
     }
 
-    router.replace(`/products?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   }, [debouncedSearch]);
 
   const [navLinks, setNavLinks] = useState([
