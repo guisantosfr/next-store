@@ -3,27 +3,40 @@ import { Product } from "@/types/Product"
 import ProductCard from "@/components/product-card"
 import { notFound } from "next/navigation";
 
-export default async function ProductsPage({ searchParams } : { searchParams: { title?: string }}) {
-  const search = searchParams.title || '';
+export default async function ProductsPage({ searchParams }: { searchParams: { title?: string, price_min?: string, price_max?: string } }) {
+  const params = new URLSearchParams();
 
-  const endpoint = search.length > 0
-  ? `${process.env.NEXT_PUBLIC_API_URL}/products?title=${search}`
-  : `${process.env.NEXT_PUBLIC_API_URL}/products`;
+  const search = searchParams.title || '';
+  const priceMin = searchParams.price_min || '';
+  const priceMax = searchParams.price_max || '';
+
+  if (search.length > 0) {
+    params.set('title', search);
+  }
+
+  if (priceMin) {
+    params.set('price_min', priceMin);
+  }
+
+  if (priceMax) {
+    params.set('price_max', priceMax);
+  }
+
+  const queryString = params.toString();
+
+  const endpoint = queryString.length > 0
+    ? `${process.env.NEXT_PUBLIC_API_URL}/products?${queryString}`
+    : `${process.env.NEXT_PUBLIC_API_URL}/products`;
 
   const response = await fetch(endpoint, {
     next: { revalidate: 60 }
   });
 
-  if(!response.ok){
+  if (!response.ok) {
     return notFound();
   }
 
   const products: Product[] = await response.json();
-
-  // from products, determine the min and max price
-  const prices = products.map(product => product.price);
-  const minPrice = Math.min(...prices);
-  const maxPrice = Math.max(...prices);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -34,7 +47,7 @@ export default async function ProductsPage({ searchParams } : { searchParams: { 
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Filters Sidebar */}
-        <ProductFilters minPrice={minPrice} maxPrice={maxPrice} />
+        <ProductFilters />
 
         {/* Products Grid */}
         <div className="lg:col-span-3">

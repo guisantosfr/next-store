@@ -1,18 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
-
 import { Filter } from "lucide-react"
 import { Category } from "@/types/Category";
 
-export default function ProductFilters({ minPrice, maxPrice }: { minPrice: number, maxPrice: number }) {
+export default function ProductFilters() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+
     const [categories, setCategories] = useState<Category[]>([]);
-    const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+    const [priceRange, setPriceRange] = useState([0, 100]);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
 
     useEffect(() => {
@@ -25,6 +28,20 @@ export default function ProductFilters({ minPrice, maxPrice }: { minPrice: numbe
 
         fetchCategories()
     }, [])
+
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (priceRange[0] !== 0 || priceRange[1] !== 100) {
+            params.set('price_min', priceRange[0].toString());
+            params.set('price_max', priceRange[1].toString());
+          } else {
+            params.delete('price_min');
+            params.delete('price_max');
+          }
+      
+          router.replace(`/products?${params.toString()}`);
+    }, [priceRange])
 
     return (
         <div className="lg:col-span-1">
@@ -65,7 +82,7 @@ export default function ProductFilters({ minPrice, maxPrice }: { minPrice: numbe
                     {/* Price Range */}
                     <div className="mb-6">
                         <h3 className="font-medium mb-3">Price Range</h3>
-                        <Slider value={priceRange} onValueChange={setPriceRange} min={minPrice} max={maxPrice} step={1} className="mb-2" />
+                        <Slider value={priceRange} onValueChange={setPriceRange} min={0} max={100} step={1} className="mb-2" />
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>${priceRange[0]}</span>
                             <span>${priceRange[1]}</span>
