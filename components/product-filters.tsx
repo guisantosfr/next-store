@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -13,10 +13,11 @@ import { Category } from "@/types/Category";
 export default function ProductFilters() {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const pathname = usePathname();
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [priceRange, setPriceRange] = useState([0, 100]);
-    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -43,6 +44,19 @@ export default function ProductFilters() {
           router.replace(`/products?${params.toString()}`);
     }, [priceRange])
 
+    const handleSelectCategory = (slug: string) => {  
+        const params = new URLSearchParams(searchParams);
+        
+        if(slug) {
+            params.set('categorySlug', slug);
+        } else{
+            params.delete('categorySlug');
+        }
+
+        router.replace(`${pathname}?${params.toString()}`);
+        setSelectedCategory(slug);
+    }
+
     return (
         <div className="lg:col-span-1">
             <Card>
@@ -57,11 +71,8 @@ export default function ProductFilters() {
                         <h3 className="font-medium mb-3">Categories</h3>
                         <div className="space-y-2">
                             <RadioGroup
-                                value={selectedCategory?.slug}
-                                onValueChange={(slug) => {
-                                    const category = categories.find(c => c.slug === slug);
-                                    if (category) setSelectedCategory(category);
-                                }}
+                                value={selectedCategory}
+                                onValueChange={handleSelectCategory}
                             >
                                 {categories.map((category) => (
                                     <div key={category.id} className="flex items-center space-x-2">

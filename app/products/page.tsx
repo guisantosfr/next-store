@@ -3,12 +3,13 @@ import { Product } from "@/types/Product"
 import ProductCard from "@/components/product-card"
 import { notFound } from "next/navigation";
 
-export default async function ProductsPage({ searchParams }: { searchParams: { title?: string, price_min?: string, price_max?: string } }) {
+export default async function ProductsPage({ searchParams }: { searchParams: { title?: string, price_min?: string, price_max?: string, categorySlug?: string } }) {
   const params = new URLSearchParams();
 
   const search = searchParams.title || '';
   const priceMin = searchParams.price_min || '';
   const priceMax = searchParams.price_max || '';
+  const categorySlug = searchParams.categorySlug || '';
 
   if (search.length > 0) {
     params.set('title', search);
@@ -20,6 +21,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: { t
 
   if (priceMax) {
     params.set('price_max', priceMax);
+  }
+
+  if(categorySlug){
+    params.set('categorySlug', categorySlug);
   }
 
   const queryString = params.toString();
