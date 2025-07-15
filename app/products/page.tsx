@@ -25,8 +25,6 @@ export default async function ProductsPage({ searchParams } : { searchParams: { 
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
 
-  console.log(minPrice, maxPrice);
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -36,7 +34,7 @@ export default async function ProductsPage({ searchParams } : { searchParams: { 
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Filters Sidebar */}
-        <ProductFilters />
+        <ProductFilters minPrice={minPrice} maxPrice={maxPrice} />
 
         {/* Products Grid */}
         <div className="lg:col-span-3">

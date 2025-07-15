@@ -10,10 +10,9 @@ import { Slider } from "@/components/ui/slider"
 import { Filter } from "lucide-react"
 import { Category } from "@/types/Category";
 
-
-export default function ProductFilters() {
+export default function ProductFilters({ minPrice, maxPrice }: { minPrice: number, maxPrice: number }) {
     const [categories, setCategories] = useState<Category[]>([]);
-    const [priceRange, setPriceRange] = useState([0, 500])
+    const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
 
     useEffect(() => {
@@ -66,7 +65,7 @@ export default function ProductFilters() {
                     {/* Price Range */}
                     <div className="mb-6">
                         <h3 className="font-medium mb-3">Price Range</h3>
-                        <Slider value={priceRange} onValueChange={setPriceRange} max={500} step={10} className="mb-2" />
+                        <Slider value={priceRange} onValueChange={setPriceRange} min={minPrice} max={maxPrice} step={1} className="mb-2" />
                         <div className="flex justify-between text-sm text-gray-600">
                             <span>${priceRange[0]}</span>
                             <span>${priceRange[1]}</span>
