@@ -14,6 +14,7 @@ export default function ProductCard({ product }: { product: Product }) {
                             src={product.images[0] || "/placeholder.svg"}
                             alt={product.description}
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"                            
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         {product.price && <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>}

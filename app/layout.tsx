@@ -29,7 +29,7 @@ export default function RootLayout({
           </Suspense>
           
           <main className="min-h-screen">{children}</main>
-          <Toaster />
+          <Toaster richColors />
         </CartProvider>
       </body>
     </html>

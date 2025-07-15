@@ -2,7 +2,7 @@ import ProductDetails from "@/components/product-details";
 import { notFound } from "next/navigation";
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const productResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/slug/${slug}`);
   const product = await productResponse.json();

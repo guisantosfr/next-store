@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
 import Link from "next/link"
@@ -28,7 +27,7 @@ export default function ProductDetails({ product }: { product: Product }) {
       quantity,
     })
 
-    toast.success("Added to cart", {
+    toast.info("Added to cart", {
       description: `${product.title} has been added to your cart.`,
     })
   }
@@ -60,6 +59,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               src={product.images[selectedImage] || "/placeholder.svg"}
               alt={product.title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"  
               className="object-cover"
             />
             {product.price && <Badge className="absolute top-4 left-4 bg-red-500">Sale</Badge>}
@@ -77,6 +77,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                   src={image || "/placeholder.svg"}
                   alt={`${product.title} ${index + 1}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </button>
