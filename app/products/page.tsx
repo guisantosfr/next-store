@@ -6,21 +6,20 @@ import { notFound } from "next/navigation";
 export default async function ProductsPage({ searchParams }: { searchParams: { title?: string, price_min?: string, price_max?: string, categorySlug?: string } }) {
   const params = new URLSearchParams();
 
-  const search = searchParams.title || '';
-  const priceMin = searchParams.price_min || '';
-  const priceMax = searchParams.price_max || '';
-  const categorySlug = searchParams.categorySlug || '';
+  const { title, price_min, price_max, categorySlug } = await searchParams;
 
-  if (search.length > 0) {
-    params.set('title', search);
+  console.log(categorySlug)
+
+  if (title) {
+    params.set('title', title);
   }
 
-  if (priceMin) {
-    params.set('price_min', priceMin);
+  if (price_min) {
+    params.set('price_min', price_min);
   }
 
-  if (priceMax) {
-    params.set('price_max', priceMax);
+  if (price_max) {
+    params.set('price_max', price_max);
   }
 
   if(categorySlug){
